@@ -1,74 +1,107 @@
-# 🚦 SmartTraffic Multi-Agent RL
+# Advanced Traffic Navigation System using Multi-Agent Reinforcement Learning
 
-> **An intelligent traffic signal management system powered by Multi-Agent Reinforcement Learning (MARL).**
+## Overview
+This project presents an intelligent traffic signal control system built using Multi-Agent Reinforcement Learning (RL). The system optimizes traffic flow across multiple junctions by dynamically adjusting signal timings based on real-time traffic conditions.
+
+The objective is to reduce congestion, minimize waiting time, and improve overall traffic throughput compared to traditional fixed-timing systems.
+
+---
+
+## Core Concepts
+
+### Reinforcement Learning
+- Uses Q-Learning for decision making
+- Multi-agent setup where each junction acts as an independent agent
+- Agents learn optimal signal timings through rewards and penalties
+
+### Graph Data Structure
+The traffic network is modeled as a graph to represent a real-world city layout:
+
+- Vertices (Nodes): Traffic junctions  
+- Edges: Roads connecting junctions  
+
+This structure allows efficient simulation of traffic flow and interdependence between intersections.
+
+---
+
+## Performance Dashboard
 
 ![System Dashboard](optimized_traffic_results.png)
 
-## 🌟 Overview 
+The above visualization represents the training and performance metrics of the system.
 
-Imagine two neighboring traffic junctions. Usually, traffic lights operate on simple timers, regardless of how many cars are actually waiting. 
-
-In this project, we replace those "dumb" timers with **AI Agents**. These agents are like students learning to play a game:
-1. **The Goal**: Keep the lines as short as possible.
-2. **The Reward**: If the queue is short, they get a "score." If traffic backs up, they lose points.
-3. **The Teamwork**: Because the junctions are neighbors, the agents "talk" to each other indirectly. If one junction is overwhelmed, the other learns to adjust its timing to help its neighbor out.
-
-Over hundreds of simulations, the AI discovers the perfect "rhythm" for the signals that no human-programmed timer could match.
-
----
-
-## 🚀 Key Features
-
-- **🧠 Collaborative AI**: Two independent agents that learn to coordinate their signal phases.
-- **⚡ Optimized Learning**: Custom "State Aggregation" technique that allows the AI to learn **60% faster** than standard models.
-- **🧩 Modular Design**: Cleanly separated code for the Environment, the AI Agents, and the Visualization dashboard.
-- **📊 Real-time Dashboard**: Generates comprehensive 6-graph analytics showing everything from reward trends to junction imbalances.
+### Metrics Included
+- Episode rewards per junction
+- Average queue length per junction
+- Mean signal duration
+- System-wide aggregate reward
+- Network-wide total queue
+- Throughput (vehicles served)
+- Traffic load imbalance
+- Training stability (reward variance)
+- Long-term moving average trends
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
+│
+├── src/
+│ ├── environment.py # Traffic simulation environment
+│ ├── agent.py # RL agent implementation (Q-learning)
+│ ├── train.py # Training loop
+│ ├── utils.py # Helper utilities
+│
+├── data/
+│ ├── traffic_data.csv # Input or simulated traffic data
+│
+├── assets/
+│ ├── dashboard.png # Performance visualization image
+│
+├── results/
+│ ├── logs.txt # Training logs
+│ ├── metrics.csv # Output performance metrics
+│
+├── README.md
+└── requirements.txt
 
-```mermaid
-graph TD
-    A[main.py] --> B[src/env.py]
-    A --> C[src/agent.py]
-    A --> D[src/utils.py]
-    B --> |Traffic Data| A
-    C --> |AI Decisions| A
-    D --> |Graphs| E[optimized_traffic_results.png]
-```
-
-- **`src/env.py`**: The "World." It handles car arrivals, lane physics, and signal logic.
-- **`src/agent.py`**: The "Brain." It contains the Q-Learning logic and the experience memory.
-- **`src/utils.py`**: The "Eyes." It handles all the complex math for the moving averages and dashboard generation.
-
----
-
-## 🏃 How to Run
-
-1. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Run the Simulation**:
-   ```bash
-   python main.py
-   ```
-
-After the simulation finishes (500 episodes), you will find a file named `optimized_traffic_results.png` in your folder with the full performance breakdown.
 
 ---
 
-## 📈 Understanding the Results
+## Working Methodology
 
-When looking at the generated dashboard:
-- **Total Reward**: Should be moving **upwards** (closer to 0). This means the agents are failing less!
-- **Avg Queue**: Should be moving **downwards**. This means the roads are getting clearer.
-- **50 ep MA**: This is the "Big Picture" view. It filters out the random traffic spikes to show the true learning trend.
+1. The traffic network is initialized as a graph.
+2. Each junction (node) is assigned an RL agent.
+3. Agents observe:
+   - Queue lengths
+   - Traffic density
+4. Agents take actions:
+   - Adjust signal timing dynamically
+5. Rewards are calculated based on:
+   - Reduction in waiting time
+   - Improvement in traffic flow
+6. Over multiple episodes, agents learn optimal policies.
 
 ---
 
-> [!TIP]
-> **Why is this better than normal traffic lights?**
-> Standard traffic lights are static. This AI reacts to congestion in real-time. If there's an unexpected surge from the North, the AI detects it instantly and extends the green light, while coordinating with the next junction to prevent a "gridlock" chain reaction.
+## Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/your-username/Advanced-traffic-nav-system.git
+cd Advanced-traffic-nav-system
+pip install -r requirements.txt
+
+---
+
+ 
+Improved traffic flow efficiency
+Reduced vehicle waiting time
+Lower congestion compared to fixed signal systems
+Adaptive behavior based on traffic conditions
+
+---
+
+
+
+---
