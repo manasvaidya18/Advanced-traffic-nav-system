@@ -7,7 +7,7 @@ class MultiAgentQLearning:
         self,
         n_actions=4,
         alpha=0.1,
-        gamma=0.95,
+        gamma=0.95,  #discount factor: tells how much to care about future rewards
         epsilon=1.0,
         epsilon_min=0.05,
         eps_decay_rate=0.99
